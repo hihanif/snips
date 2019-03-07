@@ -1,4 +1,4 @@
-#ArrayList
+# ArrayList
 
 ```java
 // "static void main" must be defined in a public class.
