@@ -1,6 +1,6 @@
 ArrayList
 
-'''java
+```java
 // "static void main" must be defined in a public class.
 public class Main {
     public static void main(String[] args) {
@@ -42,5 +42,5 @@ public class Main {
         v1.remove(v1.size() - 1);
     }
 }
-'''
+```
 
