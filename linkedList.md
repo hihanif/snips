@@ -1,9 +1,17 @@
-# Single Linked List
+# Linked List
 
 * avoid repetition of the code (getNode is the key API here)
 * think of head as headHolder (reduces all NULL check overhead)
 * remember the zero index condition (for loop condition)
 * check for boundary condition before you traverse (reduces if check overhead)
+* Two pointer is cool
+* one of the key learning is to play around with length
+	* for cycle detection
+	* meeting point of 2 linked list
+* If you need to add or delete a node frequently, a linked list could be a good choice.
+* If you need to access an element by index often, an array might be a better choice than a linked list.
+
+## Single Linked List
  
 ```java
 class MyLinkedList {
@@ -190,4 +198,105 @@ class MyLinkedList {
  * obj.deleteAtIndex(index);
  */
  ```
+ 
+ ## Sloppy code vs neat code
+ 
+ ```java
+ public class Solution {
+    public boolean hasCycle(ListNode head) {
+	        // ListNode slow, fast;
+        ListNode slow = head, fast = head;
+        
+//         // boundary check
+//         if (head == null || head.next == null){ // zero or only one node
+//             return false;
+//         }
+        
+//         slow = head;
+//         fast = head.next.next;
+
+        while (fast != null && fast.next != null) {
+            // if (slow == fast) { 
+            //     return true;
+            // }
+            slow = slow.next;
+            fast = fast.next.next; // double jump
+            if (slow == fast) { 
+                return true;
+            }
+
+        }
+        return false;
+    }
+}
+```
+
+## loop of a linked list
+
+```java
+To understand this solution, you just need to ask yourself these question.
+Assume the distance from head to the start of the loop is x1
+the distance from the start of the loop to the point fast and slow meet is x2
+the distance from the point fast and slow meet to the start of the loop is x3
+What is the distance fast moved? What is the distance slow moved? And their relationship?
+
+x1 + x2 + x3 + x2
+x1 + x2
+x1 + x2 + x3 + x2 = 2 (x1 + x2)
+Thus x1 = x3
+
+Finally got the idea.
+```
+
+## reverse a linked list
+
+* dont think too much. even a regular iterative works fine and simple
+* see the first version of iterative is a little over thought
+* the 2nd version is clean
+* tail recrusive of recursive is super good. but dont attempt at first short
+
+
+```java
+class Solution {
+    public ListNode reverseList(ListNode head) {
+//         ListNode headHolder = new ListNode(-1);
+//         ListNode curr = head, next;
+        
+//         while (curr != null) {
+//             next = curr.next;
+//             curr.next = headHolder.next;
+//             headHolder.next = curr;
+//             curr = next;
+//         }
+//         return headHolder.next;
+        
+        ListNode newHead = null, next;
+        while (head != null) {
+            next = head.next;
+            head.next = newHead;
+            newHead = head;
+            head = next;
+        }
+        
+        return newHead;
+    }
+    
+    public ListNode reverseListR(ListNode head) {
+        return helper(head, null)        ;
+    }
+    
+    private ListNode helper(ListNode curr, ListNode prev) {
+        if (curr == null) return prev;
+        
+        // ListNode head = helper(curr.next, curr);
+        // curr.next = prev;
+        // return head;
+        ListNode next = curr.next;
+        curr.next = prev;
+        return helper(next, curr);  // tail-recursive optimization
+    }
+}
+```
+ 
+ 
  
