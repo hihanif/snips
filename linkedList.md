@@ -298,5 +298,186 @@ class Solution {
 }
 ```
  
- 
- 
+# add two numbers
+## Diff between sloppy and super-duper code
+
+* enjoy the beauty of headHolder pointer (a kind of design pattern like ViewHolder)
+* enjoy how carry is added to the condition to tackle the end boundary case
+* enjoy the l1/l2 null checks couple of times to avoid if overhead later. Idea is to keep looping until the real end
+
+```java
+class Solution {
+    
+        public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+            ListNode head = new ListNode(0);
+            ListNode res = head;
+            
+            int carry = 0;
+            while (l1 != null || l2 != null || carry > 0) {
+                int val1 = (l1 != null) ? l1.val : 0;
+                int val2 = (l2 != null) ? l2.val : 0;
+                
+                ListNode temp = new ListNode(0);
+                int sum = val1 + val2 + carry;
+                temp.val = sum % 10;
+                carry = sum / 10;
+                
+                res.next = temp;
+                res = temp;
+                
+                l1 = (l1 != null) ? l1.next : null;
+                l2 = (l2 != null) ? l2.next : null;
+                
+            }
+            
+            return head.next;
+        }
+
+    
+    public ListNode addTwoNumbers1(ListNode l1, ListNode l2) {
+        // boundary condtions
+        if (l1 == null) return l2;
+        if (l2 == null) return l1;
+        
+        // update the answer in l1
+        int carryover = 0;
+        ListNode returnList = l1; 
+        
+        while (l1.next != null && l2.next != null) {
+            l1.val = carryover + l1.val + l2.val;
+            
+            carryover = 0; // reset it
+            if (l1.val > 9) {
+                carryover = 1;
+                l1.val = l1.val % 10;
+            }
+            l1 = l1.next;
+            l2 = l2.next;
+        }
+        
+        if (l1.next == null) { // continue with l2;
+            l1.next = l2.next;
+        }
+        
+        // update the current
+        l1.val = carryover + l1.val + l2.val;
+        carryover = 0; // reset
+            if (l1.val > 9) {
+                carryover = 1;
+                l1.val = l1.val % 10;
+            }
+        
+        ListNode prevl1 = l1;
+        l1 = l1.next; // go to next
+                
+        while (l1 != null && carryover > 0) {
+            l1.val = carryover + l1.val;
+            carryover = 0;
+            if (l1.val > 9) {
+                carryover = 1;
+                l1.val = l1.val % 10;
+            }
+            prevl1 = l1;
+            l1 = l1.next;
+        }
+        
+        // add the last node if neede
+        if (carryover > 0) {
+            prevl1.next = new ListNode(carryover);
+        }
+        
+        return returnList;
+    }
+    
+}
+```
+
+# Insert into a cyclic sorted list
+* never get afraid of the complexity. Finally everything boiled down to **traversal** with __one__ or __two__ or __n__ pointers
+* this question is a proof that you can find the traversal with some homework
+* enjoy the beauty of break in the loop to reuse the last couple of lines of code. **remember** duplicacy = sloppy
+### Yours vs non-sloppy :) Not bad. Breaking the traversal is the big hit.
+
+
+
+```java
+public Node insert(Node head, int insertVal) {
+    if(head == null) {
+        Node curr = new Node(insertVal);
+        curr.next = curr;
+        return curr;
+    }
+
+    Node prev = head;
+    Node curr = head.next;
+
+    while(curr != head) {
+        int pre = prev.val;
+        int next = curr.val;
+
+        if(insertVal == pre
+                || (pre < insertVal && insertVal <= next)
+                || (next < pre && pre < insertVal)
+                || (insertVal < next && next < pre)) {
+            break;
+        }
+        prev = curr;
+        curr = curr.next;
+    }
+
+    Node node = new Node(insertVal);
+    prev.next = node;
+    node.next = curr;
+    return head;
+}
+
+class Solution {
+    private void log(String msg) {
+        System.out.println(msg);
+    }
+    
+    public Node insert(Node head, int insertVal) {
+        if (head == null) {
+            head = new Node(insertVal);
+            head.next = head; // cyclic
+            return head;
+        }
+        
+        Node newNode = new Node(insertVal);
+        
+        Node curr = head.next;
+        Node prev = head;
+        while (curr != head) {
+            int cVal = curr.val;
+            int pVal = prev.val;
+            log("cVal=" + cVal + " pVal=" + pVal  + " insertVal=" + insertVal);
+            if (cVal < pVal) { // beginning of the list
+                if (insertVal <= cVal || insertVal >= pVal) { // either smallest or largest
+                    log("added 1");
+                    // newNode.next = curr;
+                    // prev.next = newNode;
+                    // return head;
+                    break;
+                }
+            } else {
+                if (insertVal == pVal || insertVal == cVal || (insertVal >= pVal && insertVal <= cVal)) { //insert here
+                    // log("added 2");
+                    // newNode.next = curr;
+                    // prev.next = newNode;
+                    // return head;
+                    break;
+                }
+                
+            }
+            prev = curr;
+            curr = curr.next;
+        }
+        
+        log("added 3");
+        // add at tail;
+        prev.next = newNode;
+        newNode.next = curr;
+        return head;
+    }
+}
+```
