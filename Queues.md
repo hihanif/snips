@@ -293,6 +293,7 @@ class Solution {
 }
 ```		
 
+## 752. Open the Lock
 ## Wake up! Wake up! Wake up- Bidirectional BFS rocks.
 
 We can consider bidirectional approach when-
@@ -303,6 +304,8 @@ We can consider bidirectional approach when-
 * Optimality : It is optimal if BFS is used for search and paths have __uniform cost__.
 * Time and Space Complexity : Time and space complexity is __O(b^{d/2})__
 * https://efficientcodeblog.wordpress.com/2017/12/13/bidirectional-search-two-end-bfs/
+* \
+* visited is mostly necessary. almost always in BFS/DFS.
 
 ["0201","0101","0102","1212","2002"]
 "0202"
@@ -413,6 +416,76 @@ class Solution {
             } else {
                 q = qEnd;
                 qEnd = newQ;
+            }
+        }
+        
+        return -1;
+    }
+}
+```
+
+## 279. Perfect Squares using Bidirectional BFS
+
+* super cool. super fast.
+* Mistakes:
+	* swapSign is missed for the BFS from the targetEnd.
+	* Yes, it is true that the braching factor is same but the impact is different. Where as for lock problem, it is same for both. While playing with numbers, we need to be double careful.
+	* remember, even the swapSign with negative (-1) is a cool idea i steal from somewhere. :)
+* though in this case, the visited set does not make any diff, keep an eye.
+
+
+```java
+class Solution {
+    private void log(String msg) {
+        System.out.println(msg);
+    }
+    
+    public int numSquares(int n) {
+        // find the edges
+        List<Integer> edges = new ArrayList<>();
+        for (int i = 1; i <= n ; i ++) {
+            long val = i * i;
+            if (val > n) break;
+            if (val == n) return 1;
+            edges.add((int)val);
+        }
+        
+        Set<Integer> beginSet = new HashSet<>();
+        Set<Integer> endSet = new HashSet<>();
+        
+       
+        beginSet.add(n); 
+        endSet.add(0); 
+        
+        Set<Integer> visited = new HashSet<>();
+        visited.add(n);
+        visited.add(0);
+        
+        int level = -1;
+        int swapSign = -1;
+        
+        while (!beginSet.isEmpty() && !endSet.isEmpty())      {
+            level ++;
+            Set<Integer> newSet = new HashSet<>(); // stores all possible values in this level
+        
+            // log("beginSet size="  + beginSet.size() + " endSet size()=" + endSet.size());
+            for (int curr : beginSet) {
+                for (int e : edges) {
+                    int newVal = curr + e*swapSign;
+                    if (endSet.contains(newVal)) 
+                        return level + 1;
+                    if (newVal < 0) break; // all further edges will be greater only
+                    // if (!visited.contains(newVal)) 
+                        newSet.add(newVal);
+                }
+            }
+            
+            if (newSet.size() < endSet.size()) {
+                beginSet = newSet;
+            } else { // swap
+                swapSign = -swapSign;
+                beginSet = endSet;
+                endSet = newSet;
             }
         }
         
