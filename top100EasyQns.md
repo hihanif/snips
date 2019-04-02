@@ -50,3 +50,31 @@
 
 ## longest common prefix
 * while nested looping, break just breaks only one loop
+
+# LinkedLists
+
+##   Remove Nth Node From End of List
+* of course, remember the start dummy node. it is cool
+* learn to visualize the n+1 fast move and fast!=null check
+
+```java
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode start = new ListNode(0);
+        start.next = head;
+        
+        ListNode slow = start, fast = start;
+        while (n-- >= 0 && fast != null) { // one more jump
+            fast = fast.next;
+        }
+        
+        while (fast != null) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+        
+        slow.next = slow.next.next;
+        return start.next;
+    }
+}
+```
