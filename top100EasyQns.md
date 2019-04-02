@@ -10,6 +10,8 @@
 * hash map failed bcoz duplicates are not allowed
 * Arrays.sort failed bcoz index is screwed
 * Finally copied the answer
+* the beauty is being dynamic. instead of filling the map initially, fill while looping it.
+
 1. wrong answer bcoz the first item of result should be the first index. oh my bad
 2. int new[] - sucks (instead of new int[])
 3. just used left/right instead of nums[left]/nums[right] - sleepy!
