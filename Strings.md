@@ -1,12 +1,21 @@
-APIs:
-substring(startIndex, endIndex);
+## Strings
+
+s.substring(startIndex, endIndex); // the endIndex is not included in the output stirng
+s.substring(startIndex);
+
+s.indexOf(int); // a char too
+s.indexOf(str);
+s.indexOf(str, fromIndex);
+
+s.split(String regex);
+
+s.trim();
+s.toCharArray();
+s.valueOf(int);
 
 
-StringBuffer::
-reverser();
-
-
-
+## StringBuilder
+* String does not have reverse. :( sb.reverse();
 
 
 // reverse string
