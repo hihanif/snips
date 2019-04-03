@@ -1,6 +1,6 @@
 ## Strings
 
-s.substring(startIndex, endIndex); // the endIndex is not included in the output stirng
+s.substring(startIndex, endIndex); // the endIndex is 	not included in the output stirng
 s.substring(startIndex);
 
 s.indexOf(int); // a char too
