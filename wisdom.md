@@ -16,3 +16,5 @@
 ## LRU cache is a perfect example. You need O(1) access and least-recently used cache invalidation tech. No way to acheive this with one DS. think dual. One HashSet and one LL and connect it wisely by storing the LL node in HashSet. cool.
 
 ## the same way as told by Jay to random get() but O(1) put. so hashset and arraylist. Hashset stores the index and arraylist stores the data.
+
+## minStack. you need to maintain the stack property but need to get the min value in O(1). so, dual stack approach.
