@@ -18,3 +18,9 @@
 ## the same way as told by Jay to random get() but O(1) put. so hashset and arraylist. Hashset stores the index and arraylist stores the data.
 
 ## minStack. you need to maintain the stack property but need to get the min value in O(1). so, dual stack approach.
+
+# For DFS, think about caching. it is called DP
+
+# Optimize. sounds hard but focus on loops. it is enough.
+
+# Revisit TODO and FIXME. Listen to the inner self and write TODO/README sooner
