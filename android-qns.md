@@ -13,6 +13,7 @@
   * Download only the most relevant content such as text instead of html for Emails. 
   * use less BW on slow connections
   * Prefetch accordingly. news app fetches 3 articles in 2G but 20 in wifi
+  * Compression
   
 # Device capability for billions
 ## Support multiple screen sizes
@@ -26,6 +27,7 @@
   * lesser apk sizes and fetures
   * isLowRamDevice() and control your features
   * Use memory profiler
+  * use optimized data containers like SparseArray to avoid autoboxing costs, instead of HashMap for (Integer, Value) mapping
   
 # Reduced data cost for billions
 ## Reduce app size
@@ -56,4 +58,15 @@
 # Few talk points:
 
 ![radio power](https://developer.android.com/images/efficient-downloads/mobile_radio_state_machine.png)
+
+### Performance and view hierarchies
+  * Poor view hierarchy may slow you down
+  * layout-and-measure stages of rendering - layout finds the position & measure finds size and boundaries of each view
+  * even when you call setText on a TextView, it disturbs the whole setup and takes time to re-render
+  * Relative layout is better than others. But Constraint Layout is the king now
+  * double taxation - twice doing layout-and-measure to position the views
+  * Use Lint Performance, GPU Profiler, systrace to idenitify the bottlenecks
+  * avoid nested view hierarchies - prefer <merge> instead of <include>
+
+
 
