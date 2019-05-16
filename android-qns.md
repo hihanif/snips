@@ -1,4 +1,3 @@
-
 # Build for billions
 
 # Network efficiency
@@ -36,5 +35,25 @@
   * uses cache dir for temp data so that system can clean if low memory
 
 # Battery consumption for billions
-## 
+  * batt benchmarking, wakelock usage, sensor usage, tasks scheduling/polling
+  
+  * GPS sensor - prefer Google's gms's FusedLocationProviderClient interface
+  * no bg ops in battery power
+  * wakelocks - say no no
+  * batch n/w activity - to reduce freq bring up of radio
+  * Use workmanager
+  * Batterystats & battery historian tools
+
+# UI and content for billions
+  * keep quick launch, keep UI thread idle AMAP to increase UI responsiveness
+## Target 60 frames per second on low-cost devices
+  * no overdraw i.e. a button over an image. rather let the image be clickable :)
+  * 16 ms refresh rate. Use profiler to find the time consuming tasks
+  * Better layout & View hierarchy - Use constraint layout
+  * Use launch screens with your brand image to fool the user while loading the content
+
+
+# Few talk points:
+
+![radio power](https://developer.android.com/images/efficient-downloads/mobile_radio_state_machine.png)
 
