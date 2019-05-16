@@ -68,5 +68,5 @@
   * Use Lint Performance, GPU Profiler, systrace to idenitify the bottlenecks
   * avoid nested view hierarchies - prefer <merge> instead of <include>
 
-
+![save battery](https://developer.android.com/images/guide/background/bg-job-choose.svg)
 
