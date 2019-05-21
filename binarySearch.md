@@ -1,3 +1,37 @@
+# Binary Search
+* sorted + arrays - think about this.
+
+## Template I
+### sqrt(x)
+* though this is little tricky and does not honor Template#1 fully, update the answer every time. the idea is to run the loop till <=. in order to that, the left and right should be incr every time.
+
+```
+    public int mySqrt(int x) {
+        if (x <= 0) return 0;
+        int left = 1, right = x;
+        int result = 0;
+        while (left <= right) {
+            int mid = left + (right - left)/2;
+            if (mid > x/mid) { 
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+                result = mid;
+            }
+        }
+        return result;
+    }
+```
+###  Search in Rotated Sorted Array
+* remember the double condition. first find the ordered side and then check if the target falls in that range
+
+## Template II
+* left biased. i.e. while moving left, even the mid is taken with it.
+* whenever doing (mid+1 or mid-1) check, think about the boundary check
+* 
+
+### 
+
 ```
 public class Solution {
 	public int[] searchRange(int[] A, int target) {
