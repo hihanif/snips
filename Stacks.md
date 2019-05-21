@@ -154,6 +154,7 @@ public List<Integer> inorderTraversal(TreeNode root) {
 ```
 
 ## 239. Decode String
+* recursion looks better. be careful about isIndex(String, startIndex) api. the second arg has to match with your index
 
 ```java
 public class Solution {
