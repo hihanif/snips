@@ -2,6 +2,7 @@
 
 ## 40. Evaluate Reverse Polish Notation
 * avoid code duplication. little too much for board writing. but a good value addition to mention
+* __while evaluating the operator, the operands should be sent in reverse order. Experience makes you perfect__
 
 ```
 interface Operator {
@@ -42,6 +43,7 @@ public int evalRPN(String[] tokens) {
 * how beautiful to push the inverse to ease the check. outstanding.
 * missed the push itself in the first iteration
 * missed to put the push in the second iteration
+* __if there is a bunch of if/else, then think of hashMap__
 
 ```java 
 class Solution {
@@ -154,6 +156,7 @@ public List<Integer> inorderTraversal(TreeNode root) {
 ```
 
 ## 239. Decode String
+* recursion looks better. be careful about isIndex(String, startIndex) api. the second arg has to match with your index
 
 ```java
 public class Solution {

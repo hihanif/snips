@@ -46,7 +46,7 @@ class MyCircularQueue {
 * missed to diff between size and capacity. Initially, the size is 1 & 2. it is not always 3. Size() vs Capacity.
 * Prefer double over long. and no need to unnecesary cast. learn better progg.
 
-```java
+```''
 class MovingAverage {
     Queue<Integer> q;
     int capacity;
@@ -69,7 +69,7 @@ class MovingAverage {
         }
         q.add(val);
         //sum += (long)val;
-		sum += val;
+	 	sum += val;
 		
         //return sum/(double)(q.size());
 		return sum/q.size();
@@ -137,6 +137,13 @@ class Logger {
 * DFS is ok  here but re-relaxing is an overhead. so, not good. You got it!
 	* __i just feel that DFS is really terrible and a bad solution. Period.__
 
+### revised**
+
+* more oops centric. use Points class. 
+* make the input as class variable and so can access from utility methods directly
+	* Point[] dirs = { new Point(0,1), new Point(0,-1), new Point(1,0), new Point(-1, 0)};
+* never ever change row/col notation with x/y since both are totally diff. x refers col and y refers rows. :(
+
 ```java
 class Solution {
     // BFS
@@ -185,10 +192,70 @@ class Solution {
 }
 ```
 
+### revised program
+
+```java
+class Solution {
+    final int INF = Integer.MAX_VALUE;
+    int[][] rooms;
+    
+    class Point {
+        int r, c;
+        Point(int row, int col) {
+            r = row;
+            c = col;
+        }
+        
+        boolean canVisit() {
+            return !(r < 0 || c < 0 || r >= rooms.length || c >= rooms[0].length || rooms[r][c] != INF);
+        }
+        
+        void set(int val) {
+            rooms[r][c] = val;
+        }
+    }
+    
+    public void wallsAndGates(int[][] rooms) {
+        this.rooms = rooms;
+        Queue<Point> q = new LinkedList<>();
+        
+        // initalize
+        for (int i = 0; i < rooms.length; i++) {
+            for (int j = 0; j  < rooms[0].length; j++) {
+                if (rooms[i][j] == 0)
+                    q.offer(new Point(i, j));
+            }
+        }
+        
+        Point[] dirs = { new Point(0,1), new Point(0,-1), new Point(1,0), new Point(-1, 0)};
+        
+        int level = 0;
+        while (!q.isEmpty()) {
+            int size = q.size();
+            level ++;
+            while(size-- > 0) {
+                Point pos = q.poll();
+                // visit all neighbors of this position
+                for (Point dir : dirs) {
+                    Point newPos = new Point(pos.r + dir.r, pos.c + dir.c);
+                    if (newPos.canVisit()) {                    
+                        newPos.set(level);
+                        q.offer(newPos);
+                    }
+                }
+            }
+        }
+        
+        return;
+    }
+}
+```
+
 ## same as above but DFS
 
 * amazing brevity
 * rooms[row][col] <= depth is a key idea to return to avoid looping.
+
 
 ```java
     // DFS
@@ -306,6 +373,13 @@ We can consider bidirectional approach when-
 * https://efficientcodeblog.wordpress.com/2017/12/13/bidirectional-search-two-end-bfs/
 * \
 * visited is mostly necessary. almost always in BFS/DFS.
+
+### revised**
+* struggled a lot with this, while revising. better to stick to BFS.
+* handling visited node is tricky. First check for target and then check for visited or not.
+* super struggled with digits array. no int to char business.
+	* final char[] digits = "0123456789".toCharArray();
+	
 
 ["0201","0101","0102","1212","2002"]
 "0202"

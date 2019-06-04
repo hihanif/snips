@@ -1,3 +1,38 @@
+# Binary Search
+* sorted + arrays - think about this.
+
+## Template I
+### sqrt(x)
+* though this is little tricky and does not honor Template#1 fully, update the answer every time. the idea is to run the loop till <=. in order to that, the left and right should be incr every time.
+
+```
+    public int mySqrt(int x) {
+        if (x <= 0) return 0;
+        int left = 1, right = x;
+        int result = 0;
+        while (left <= right) {
+            int mid = left + (right - left)/2;
+            if (mid > x/mid) { 
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+                result = mid;
+            }
+        }
+        return result;
+    }
+```
+###  Search in Rotated Sorted Array
+* remember the double condition. first find the ordered side and then check if the target falls in that range
+
+## Template II
+* left biased. i.e. while moving left, even the mid is taken with it.
+* whenever doing (mid+1 or mid-1) check, think about the boundary check
+* 
+
+### 
+
+```
 public class Solution {
 	public int[] searchRange(int[] A, int target) {
 		int start = Solution.firstGreaterEqual(A, target);
@@ -26,9 +61,9 @@ public class Solution {
 		return low;
 	}
 }
-==
+```
 
-    
+``` 
     // pure bs
     int bs(int[] nums, int target, int left, int right, int shift) {
         if (left > right) return -1;
@@ -39,8 +74,9 @@ public class Solution {
         if (nums[newmid] < target) return bs(nums, target, mid + 1, right, shift);
         return bs(nums, target, left, mid - 1, shift);
     }
+```
 
-==
+```
 class Solution {
     // find lower bound in the array
     public int findMin(int[] nums) {
@@ -60,9 +96,10 @@ class Solution {
     }
 }
 
-==
-  Find K Closest Elements
+```
+# Find K Closest Elements
 
+```
 class Solution {
     public List<Integer> findClosestElements(int[] arr, int k, int x) {
         List<Integer> resultList = new ArrayList<>();
@@ -87,10 +124,11 @@ class Solution {
         return resultList;
     }
 }
+```
 
-==
-  Search in a Sorted Array of Unknown Size
+# Search in a Sorted Array of Unknown Size
 
+```
 class Solution {
     public int search(ArrayReader reader, int target) {
         if (reader.get(0) == target) return 0;
@@ -114,4 +152,4 @@ class Solution {
         return -1;
     }
 }
-
+```

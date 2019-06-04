@@ -24,3 +24,13 @@
 # Optimize. sounds hard but focus on loops. it is enough.
 
 # Revisit TODO and FIXME. Listen to the inner self and write TODO/README sooner
+
+Programming wisdom
+
+# never replace r,c with x,y variables. remember r indicates row whereas x indicates column. thought process will be screwed
+
+## Programming tips
+* whenever checking for i+1, do boundary checking
+* indexOf(String, beginIndex) the second param is the moving index
+* 
+
