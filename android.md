@@ -23,6 +23,6 @@
 - 9 patch - stretchable bitmap image, used as a background for view to support multiple device configuration. it has 9 sections - 4 corners, 4 sides and 1 center. .9.png
 - shareUid - appl manifest, same signature
 - PackageManager.hasSystemFeature - to check for any features like sensors, also <uses-feature> in the manifest as a strict way to checking before installing the appl
-- Sensors - SensorMgr, Sensor, SensorEvent, SensorEventListener
 - Handlers - to pass data between threads
+- Sensors - SensorMgr, Sensor, SensorEvent, SensorEventListener
 
